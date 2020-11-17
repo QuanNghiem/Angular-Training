@@ -1,0 +1,159 @@
+<div class="d-flex justify-content-center">
+    <h1>Users Dashboard</h1>
+</div>
+
+<div *ngIf="userList.length ===0" class="alert alert-info">No user to show!</div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th id="id">ID</th>
+            <th id="username">Username</th>
+            <th id="type">Type</th>
+            <th id="button">Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of userList; let ind = index">
+            <td>{{i?._id}}</td>
+            <td>{{i?.username}}</td>
+            <td *ngIf="i.type === 1">Admin</td>
+            <td *ngIf="i.type === 0">User</td>
+            <td>
+                <p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+                        (click)="setId(i._id, i.username)">Edit</button></p>
+                <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-success btn-lg" style="position: fixed; bottom: 0px; right: 0px;" data-toggle="modal"
+    data-target="#myModal1">Add User</button>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change username and password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="updateForm" (ngSubmit)="updateForm.valid && onSubmitUpdate(updateForm)">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control"
+                                formControlName="username" placeholder='{{selectedName}}'
+                                [ngClass]="{ 'is-invalid': updateForm.get('username').touched && updateForm.get('username').invalid }">
+                            <span class="invalid-feedback">Username can't be blank.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pass">Password</label>
+                            <input type="password" id="pass" name="pass" class="form-control" formControlName="pass"
+                                [ngClass]="{ 'is-invalid': updateForm.get('pass').touched && updateForm.get('pass').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="updateForm.get('pass').hasError('pass')">Password can't be blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPass">Confirm Password</label>
+                            <input type="password" id="confirmPass" name="confirmPass" class="form-control"
+                                formControlName="confirmPass"
+                                [ngClass]="{ 'is-invalid': updateForm.get('confirmPass').invalid }">
+                            <span *ngIf="updateForm.get('confirmPass').hasError('notMatch')">
+                                <span>Password must match</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Account Type</label>
+                            <select id="type" name="type" class="form-control" formControlName="type"
+                                [ngClass]="{ 'is-invalid': updateForm.get('type').touched && updateForm.get('type').invalid }">
+                                <option value="" selected disabled hidden>Choose here</option>
+                                <option value=1>Admin</option>
+                                <option value=0>User</option>
+                            </select>
+                            <span class="invalid-feedback">
+                                <span *ngIf="updateForm.get('type').hasError('required')">Account type can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" [disabled]="updateForm.invalid">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create new user</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addForm" (ngSubmit)="addForm.valid && onSubmitAdd(addForm)">
+                        <div class="form-group">
+                            <label for="usernameAdd">Username</label>
+                            <input type="text" id="usernameAdd" name="usernameAdd" class="form-control"
+                                formControlName="usernameAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('usernameAdd').touched && addForm.get('usernameAdd').invalid }">
+                            <span class="invalid-feedback">Username can't be blank.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passAdd">Password</label>
+                            <input type="password" id="passAdd" name="passAdd" class="form-control"
+                                formControlName="passAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('passAdd').touched && addForm.get('passAdd').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="addForm.get('passAdd').hasError('passAdd')">Password can't be blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassAdd">Confirm Password</label>
+                            <input type="password" id="confirmPassAdd" name="confirmPassAdd" class="form-control"
+                                formControlName="confirmPassAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('confirmPassAdd').invalid }">
+                            <span *ngIf="addForm.get('confirmPassAdd').hasError('notMatch')">
+                                <span>Password must match</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="typeAdd">Account type</label>
+                            <select id="typeAdd" name="typeAdd" class="form-control" formControlName="typeAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('typeAdd').touched && addForm.get('typeAdd').invalid }">
+                                <option value="" selected disabled hidden>Choose here</option>
+                                <option value=1>Admin</option>
+                                <option value=0>User</option>
+                            </select>
+                            <span class="invalid-feedback">
+                                <span *ngIf="addForm.get('typeAdd').hasError('required')">Account Type can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" [disabled]="addForm.invalid">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

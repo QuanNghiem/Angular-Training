@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <h1>Add Event</h1>
+            </div>
+            <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit(myForm)">
+                <div class="form-group">
+                    <label for="name">Event Name</label>
+                    <input type="text" id="name" name="name" class="form-control" formControlName="name"
+                        [ngClass]="{ 'is-invalid': myForm.get('name').touched && myForm.get('name').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('name').hasError('required')">Event name can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description" class="form-control"
+                        formControlName="description"
+                        [ngClass]="{ 'is-invalid': myForm.get('description').touched && myForm.get('description').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('description').hasError('required')">Description can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" class="form-control" formControlName="location"
+                        [ngClass]="{ 'is-invalid': myForm.get('location').touched && myForm.get('location').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('location').hasError('required')">Location can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="registStart">Registration Start Date</label>
+                    <input type="date" id="registStart" name="registStart" class="form-control"
+                        formControlName="registStart"
+                        [ngClass]="{ 'is-invalid': myForm.get('registStart').touched && myForm.get('registStart').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('registStart').hasError('required')">Registration start date can't be
+                            blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="registEnd">Registration End Date</label>
+                    <input type="date" id="registEnd" name="registEnd" class="form-control" formControlName="registEnd"
+                        [ngClass]="{ 'is-invalid': myForm.get('registEnd').touched && myForm.get('registEnd').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('registEnd').hasError('required')">Registration end date can't be
+                            blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDate">Event Date</label>
+                    <input type="date" id="eventDate" name="eventDate" class="form-control" formControlName="eventDate"
+                        [ngClass]="{ 'is-invalid': myForm.get('eventDate').touched && myForm.get('eventDate').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('eventDate').hasError('required')">Event date can't be
+                            blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageURL">Image URL</label>
+                    <input type="text" id="imageURL" name="imageURL" class="form-control" formControlName="imageURL"
+                        [ngClass]="{ 'is-invalid': myForm.get('imageURL').touched && myForm.get('imageURL').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('imageURL').hasError('required')">Image URL can't be blank</span>
+                    </span>
+                </div>
+
+                <button class="btn btn-primary btn-block btn-lg" [disabled]="myForm.invalid">Create Event</button>
+            </form>
+        </div>
+
+    </div>
+</div>

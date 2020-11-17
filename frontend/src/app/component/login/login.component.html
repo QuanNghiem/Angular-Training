@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="d-flex justify-content-center">Login</h1>
+            <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" formControlName="username"
+                        [ngClass]="{ 'is-invalid': loginForm.get('username').touched && loginForm.get('username').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="loginForm.get('username').hasError('required')">Username can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass" name="pass" class="form-control" formControlName="pass"
+                        [ngClass]="{ 'is-invalid': loginForm.get('pass').touched && loginForm.get('pass').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="loginForm.get('pass').hasError('required')">Password can't be blank</span>
+                    </span>
+                </div>
+                <a class="nav-link" [routerLink]="['/register']">Don't have an account? Sign Up.</a>
+                <button class="btn btn-primary btn-block btn-lg" [disabled]="loginForm.invalid">Login</button>
+
+            </form>
+        </div>
+    </div>
+</div>

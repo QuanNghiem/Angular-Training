@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center">
+    <h1>Available Events</h1>
+</div>
+
+<div *ngIf="eventList.length ===0" class="alert alert-info">No event to show!</div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th id="name">Name</th>
+            <th id="description">Description</th>
+            <th id="location">Location</th>
+            <th id="registStart">Registration Start Date</th>
+            <th id="registEnd">Registration End Date</th>
+            <th id="eventDate">Event Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of eventList; let ind = index">
+            <td>{{i?.name}}</td>
+            <td>{{i?.description}}</td>
+            <td>{{i?.location}}</td>
+            <td>{{i?.registStart | date}}</td>
+            <td>{{i?.registEnd | date}}</td>
+            <td>{{i?.eventDate | date}}</td>
+        </tr>
+    </tbody>
+</table>
