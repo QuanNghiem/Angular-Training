@@ -7,7 +7,6 @@ import { EventSaleComponent } from './component/event-sale/event-sale.component'
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
-import { ProfileComponent } from './component/profile/profile.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ShowUsersComponent } from './component/show-users/show-users.component';
 import { AuthGuard } from './_helper/auth.guard';
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'event/:id', component: EventDetailsComponent },
   { path: 'orderHistory', component: OrderHistoryComponent },
   { path: 'sales/:id', component: EventSaleComponent },
-  // { path: 'profile', component: ProfileComponent },
   { path: 'addEvent', component: AddEventComponent, canLoad: [AuthGuard], canActivate: [AuthGuard] },
   { path: 'displayEvent', component: DisplayEventComponent, canLoad: [AuthGuard], canActivate: [AuthGuard] },
   { path: 'manageUsers', component: ShowUsersComponent, canLoad: [AuthGuard], canActivate: [AuthGuard] },

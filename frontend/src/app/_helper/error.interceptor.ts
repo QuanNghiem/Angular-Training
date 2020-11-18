@@ -22,7 +22,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           // auto logout if 401 response returned from api
           this._userService.logout();
           alert('Token expired. Please login again.');
-          location.reload(true);
           this.router.navigate(['/home']);
         }
 

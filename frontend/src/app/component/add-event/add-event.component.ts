@@ -10,14 +10,14 @@ import { EventService } from 'src/app/_service/event.service';
 })
 export class AddEventComponent implements OnInit, OnDestroy {
 
-  myForm: FormGroup;
+  eventForm: FormGroup;
 
   eventSubscriber: Subscription;
 
   constructor (private fb: FormBuilder, private _eventService: EventService) { }
 
   ngOnInit (): void {
-    this.myForm = this.fb.group({
+    this.eventForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       location: ['', Validators.required],
@@ -32,7 +32,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
       result => {
         if (result === true) {
           alert('Event created!');
-          //this.myForm.reset();
+          //this.eventForm.reset();
         }
       }
     );

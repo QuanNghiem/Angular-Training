@@ -50,4 +50,30 @@ export class PurchaseService {
       )
     );
   }
+
+  public deleteByUser (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'purchases/deleteByUser/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public deleteByEvent (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'purchases/deleteByEvent/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
 }

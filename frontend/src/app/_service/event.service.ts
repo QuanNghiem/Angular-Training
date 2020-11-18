@@ -61,20 +61,16 @@ export class EventService {
     );
   }
 
-  // public registerEvent (id: any): Observable<boolean> {
-  //   const body = {
-  //     "eventID": id
-  //   };
-
-  //   return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/updateUserEvent', body).pipe(
-  //     map(result => {
-  //       if (result.status === false) {
-  //         return false;
-  //       }
-  //       else {
-  //         return true;
-  //       }
-  //     })
-  //   );
-  // }
+  public deleteEvent (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'events/deleteEvent/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
 }

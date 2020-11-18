@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userSubscriber = this._userService.loginUser(form).pipe().subscribe(
       result => {
         if (result === true) {
-          this._userService.verifyUser().subscribe(data => {
+          this.userSubscriber = this._userService.verifyUser().subscribe(data => {
             this.router.navigate(['/home']);
             this.loginForm.reset();
           })

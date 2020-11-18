@@ -22,10 +22,14 @@
             <td>{{i?.location}}</td>
             <td>{{i?.eventDate | date}}</td>
             <td>{{i?.price | currency}}</td>
-            <td><a class="btn btn-dark btn-lg" [routerLink]="['/sales', i._id]">Ticket Sales</a></td>
+            <td>
+                <!-- <p><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal">Edit</button></p> -->
+                <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
+            </td>
+            <td><a class="btn btn-secondary btn-lg" [routerLink]="['/sales', i._id]">Ticket Sales</a></td>
         </tr>
     </tbody>
 </table>
 
-<a class="btn btn-success btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/addEvent']">Add
+<a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/addEvent']">Add
     Event</a>

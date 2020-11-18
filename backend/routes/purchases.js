@@ -92,4 +92,62 @@ router.post('/getSales', function (req, res) {
     );
 });
 
+router.delete('/deleteByUser/:id', (req, res) => {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                var id = req.params.id;
+                Purchase.deleteMany(
+                    {
+                        userID: id
+                    },
+                    function (err, data) {
+                        if (err) {
+                            res.status(500).json(err);
+                        }
+                        else {
+                            res.status(200).json(data);
+                        }
+                    }
+                );
+            }
+        }
+    });
+});
+
+router.delete('/deleteByEvent/:id', (req, res) => {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                var id = req.params.id;
+                Purchase.deleteMany(
+                    {
+                        eventID: id
+                    },
+                    function (err, data) {
+                        if (err) {
+                            res.status(500).json(err);
+                        }
+                        else {
+                            res.status(200).json(data);
+                        }
+                    }
+                );
+            }
+        }
+    });
+});
+
 module.exports = router;
