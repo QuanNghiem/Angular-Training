@@ -2,8 +2,8 @@
     <h1>Ticket Sales</h1>
 </div>
 
-<div *ngIf="orderList.length === 0" class="alert alert-dark">No event to show!</div>
-<div *ngIf="orderList.length === 0">
+<div *ngIf="orderList.length === 0" class="alert alert-dark">No tickets to show!</div>
+<div *ngIf="orderList.length !== 0">
     <button class="btn btn-dark btn-lg" (click)="exportExcel()">Download</button>
 </div>
 
@@ -27,7 +27,7 @@
     <tbody>
         <tr *ngFor="let i of orderList;">
             <td>{{i?.userName}}</td>
-            <td>{{i?.pNo | phone}}</td>
+            <td>{{i?.pNo | mask:"(000) 000-0000" }}</td>
             <td>{{i?.email}}</td>
             <td>{{i?.ticketPrice | currency}}</td>
             <td>{{i?.ticketAmount}}</td>

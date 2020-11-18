@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 import { AppComponent } from './app.component';
 
 import { PurchasePipe } from './_helper/purchase.pipe';
@@ -25,9 +27,10 @@ import { AddEventComponent } from './component/add-event/add-event.component';
 import { DisplayEventComponent } from './component/display-event/display-event.component';
 import { EventDetailsComponent } from './component/event-details/event-details.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
-import { ProfileComponent } from './component/profile/profile.component';
 import { EventSaleComponent } from './component/event-sale/event-sale.component';
 import { PhonePipe } from './_helper/phone.pipe';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
@@ -41,7 +44,6 @@ import { PhonePipe } from './_helper/phone.pipe';
     RegisterComponent,
     EventDetailsComponent,
     OrderHistoryComponent,
-    ProfileComponent,
     EventSaleComponent,
     PurchasePipe,
     PhonePipe,
@@ -52,6 +54,7 @@ import { PhonePipe } from './_helper/phone.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     UserService,

@@ -18,7 +18,7 @@
     <tbody>
         <tr *ngFor="let i of orderList;">
             <td>{{i?.userName}}</td>
-            <td>{{i?.pNo}}</td>
+            <td>{{i?.pNo | mask:"(000) 000-0000"}}</td>
             <td>{{i?.email}}</td>
             <td>{{i?.eventName}}</td>
             <td>{{i?.eventDate | date}}</td>
