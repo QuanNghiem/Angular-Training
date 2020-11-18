@@ -13,28 +13,24 @@ export class PurchaseService {
 
   constructor (private client: HttpClient) { }
 
-  // public getEvents (): Observable<Events[]> {
-  //   return this.client.get<Events[]>(environment.BASE_API_URL + "events/getEvents");
-  // }
-
-  // public getEvent (id): Observable<Events> {
-  //   const body = {
-  //     "eventID": id
-  //   }
-  //   return this.client.post<Events>(environment.BASE_API_URL + "events/getEvent", body).pipe(
-  //     map(
-  //       result => {
-  //         return result;
-  //       },
-  //       () => {
-  //         return null;
-  //       }
-  //     )
-  //   );
-  // }
-
   public getEvents (): Observable<Purchase[]> {
     return this.client.get<Purchase[]>(environment.BASE_API_URL + "purchases/getPurchasesHistory");
+  }
+
+  public getSales (id): Observable<Purchase[]> {
+    const body = {
+      "eventID": id,
+    };
+    return this.client.post<Purchase[]>(environment.BASE_API_URL + 'purchases/getSales', body).pipe(
+      map(
+        result => {
+          return result;
+        },
+        (error: any) => {
+          return error;
+        }
+      )
+    );
   }
 
   public addEvent (form: FormGroup, id): Observable<Purchase> {

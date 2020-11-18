@@ -11,6 +11,8 @@
             <th id="description">Description</th>
             <th id="location">Location</th>
             <th id="eventDate">Event Date</th>
+            <th id="price">Ticket Price</th>
+            <th id="button">View Sales</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +21,8 @@
             <td>{{i?.description}}</td>
             <td>{{i?.location}}</td>
             <td>{{i?.eventDate | date}}</td>
+            <td>{{i?.price | currency}}</td>
+            <td><a class="btn btn-dark btn-lg" [routerLink]="['/sales', i._id]">Ticket Sales</a></td>
         </tr>
     </tbody>
 </table>

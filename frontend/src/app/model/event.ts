@@ -5,5 +5,5 @@ export class Events {
     location: string;
     eventDate: Date;
     imageURL: string;
-    price: Number;
+    price: number;
 }
