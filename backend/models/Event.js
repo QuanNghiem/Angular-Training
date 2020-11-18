@@ -4,10 +4,9 @@ const EventSchema = new mongoose.Schema({
     name: { type: String },
     description: { type: String },
     location: { type: String },
-    registStart: { type: Date },
-    registEnd: { type: Date },
     eventDate: { type: Date },
-    imageURL: { type: String }
+    imageURL: { type: String },
+    price: { type: Number }
 });
 
 module.exports = mongoose.model('Event', EventSchema);

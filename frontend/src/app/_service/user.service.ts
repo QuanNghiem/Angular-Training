@@ -20,7 +20,9 @@ export class UserService {
     const body = {
       "username": form.value.usernameR,
       "password": form.value.passR,
-      "type": 0
+      "type": 0,
+      "pNo": form.value.pNo,
+      "email": form.value.email
     };
 
     return this.client.post<{ token: any, username: any }>(environment.BASE_API_URL + 'users/register', body).pipe(
@@ -74,7 +76,9 @@ export class UserService {
     const body = {
       "username": form.value.usernameAdd,
       "password": form.value.passAdd,
-      "type": form.value.typeAdd
+      "type": form.value.typeAdd,
+      "pNo": form.value.pNoAdd,
+      "email": form.value.emailAdd
     };
 
     return this.client.post<{ token: any, username: any }>(environment.BASE_API_URL + 'users/register', body).pipe(
@@ -124,6 +128,10 @@ export class UserService {
 
   public getUsers (): Observable<User[]> {
     return this.client.get<User[]>(environment.BASE_API_URL + "users/getUsers");
+  }
+
+  public getUser (): Observable<User> {
+    return this.client.get<User>(environment.BASE_API_URL + "users/getUser");
   }
 
   public logout () {

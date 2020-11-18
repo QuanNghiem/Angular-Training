@@ -21,10 +21,9 @@ export class AddEventComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       description: ['', Validators.required],
       location: ['', Validators.required],
-      registStart: [null, Validators.required],
-      registEnd: [null, Validators.required],
       eventDate: [null, Validators.required],
       imageURL: ['', Validators.required],
+      price: [0, Validators.required]
     })
   }
 
@@ -33,7 +32,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
       result => {
         if (result === true) {
           alert('Event created!');
-          this.myForm.reset();
+          //this.myForm.reset();
         }
       }
     );

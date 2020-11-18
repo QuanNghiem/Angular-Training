@@ -1,0 +1,67 @@
+<div class="container d-flex justify-content-left">
+    <div class="card" style="width:100%">
+        <img class="card-img-top img-fluid" *ngIf="!(event?.imageURL == null)" src="{{event?.imageURL}}"
+            alt="{{event?.imageURL}}">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" colspan="2">{{event?.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{event?.description}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Location</th>
+                        <td>{{event?.location}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Event Date</th>
+                        <td>{{event?.eventDate | date}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ticket Price</th>
+                        <td>{{event?.price | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"> <button class="btn btn-success btn-sm" data-toggle="modal"
+                                data-target="#ticketModal" (click)="getEventID(event?._id)">Purchase tickets</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="ticketModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change username and password</h4>
+                    <button id="closeForm" type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="ticketForm" (ngSubmit)="ticketForm.valid && purchaseTickets(ticketForm)">
+                        <div class="form-group">
+                            <label for="amount">Ticket Amount</label>
+                            <input type="number" id="amount" name="amount" class="form-control" formControlName="amount"
+                                [ngClass]="{ 'is-invalid': ticketForm.get('amount').touched && ticketForm.get('amount').invalid }">
+                            <span class="invalid-feedback">At least 1 ticket</span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" [disabled]="ticketForm.invalid">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

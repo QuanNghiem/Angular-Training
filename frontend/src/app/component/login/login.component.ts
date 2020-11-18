@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       result => {
         if (result === true) {
           this._userService.verifyUser().subscribe(data => {
-              this.router.navigate(['/home']);
+            this.router.navigate(['/home']);
+            this.loginForm.reset();
           })
         }
       },
@@ -43,7 +44,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     );
-    this.loginForm.reset();
   }
 
   ngOnDestroy () {

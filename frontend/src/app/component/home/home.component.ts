@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Events } from 'src/app/model/event';
 import { EventService } from 'src/app/_service/event.service';
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   eventList: Events[] = [];
   allEventList: Events[] = [];
 
-  constructor (private _eventService: EventService) { }
+  constructor (private _eventService: EventService, private router: Router) { }
 
   ngOnInit (): void {
     this.getEvents();
@@ -31,14 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAllEvents () {
     this.eventSubscriber = this._eventService.getEvents().subscribe(data => {
       this.allEventList = data;
-    })
-  }
-
-  registerEvent (id) {
-    this.eventSubscriber = this._eventService.registerEvent(id).subscribe(data => {
-      if (data) {
-        alert('Event registered!');
-      }
     })
   }
 

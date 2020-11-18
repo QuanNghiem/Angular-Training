@@ -19,6 +19,8 @@ router.post('/register', function (req, res) {
     username: req.body.username,
     password: hashedPass,
     type: req.body.type,
+    pNo: req.body.pNo,
+    email: req.body.email,
   },
     function (err, user) {
       if (err) {
@@ -83,6 +85,9 @@ router.get('/verify', function (req, res) {
     else {
       if (user.type === 1) {
         return res.send({ auth: true });
+      }
+      else {
+        return res.send({ auth: false });
       }
     }
   });
@@ -169,25 +174,39 @@ router.delete('/deleteUser/:id', (req, res) => {
   });
 });
 
-router.put('/updateUserEvent', function (req, res) {
-  User.findByIdAndUpdate(
-    { "_id": req.user.id },
-    {
-      $addToSet: { eventRegistered: [ req.body.eventID ] },
-    },
-    { upsert: true },
-    function (err, data) {
-      if (err) {
-        res.status(500).send(err);
-      }
-      if (!data) {
-        res.status(401).send({ status: false });
-      }
-      else {
-        res.send({ status: true });
-      }
+router.get('/getUser', function (req, res) {
+  User.findById(req.user.id, function (errUser, user) {
+    if (errUser) {
+      res.status(401).send('Invalid token');
     }
-  )
+    if (!user) {
+      res.status(401).send('Invalid token');
+    }
+    else {
+      res.status(200).json(user);
+    }
+  });
 });
+
+// router.put('/updateUserEvent', function (req, res) {
+//   User.findByIdAndUpdate(
+//     { "_id": req.user.id },
+//     {
+//       $addToSet: { eventRegistered: [ req.body.eventID ] },
+//     },
+//     { upsert: true },
+//     function (err, data) {
+//       if (err) {
+//         res.status(500).send(err);
+//       }
+//       if (!data) {
+//         res.status(401).send({ status: false });
+//       }
+//       else {
+//         res.send({ status: true });
+//       }
+//     }
+//   )
+// });
 
 module.exports = router;

@@ -10,8 +10,6 @@
             <th id="name">Name</th>
             <th id="description">Description</th>
             <th id="location">Location</th>
-            <th id="registStart">Registration Start Date</th>
-            <th id="registEnd">Registration End Date</th>
             <th id="eventDate">Event Date</th>
         </tr>
     </thead>
@@ -20,9 +18,10 @@
             <td>{{i?.name}}</td>
             <td>{{i?.description}}</td>
             <td>{{i?.location}}</td>
-            <td>{{i?.registStart | date}}</td>
-            <td>{{i?.registEnd | date}}</td>
             <td>{{i?.eventDate | date}}</td>
         </tr>
     </tbody>
 </table>
+
+<a class="btn btn-success btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/addEvent']">Add
+    Event</a>

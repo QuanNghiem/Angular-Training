@@ -30,7 +30,29 @@
                         <span>Password must match</span>
                     </span>
                 </div>
-                <a class="nav-link" [routerLink]="['/login']">Have an account? Sign In.</a>
+
+                <div class="form-group">
+                    <label for="pNo">Phone Number</label>
+                    <input type="number" id="pNo" name="pNo" class="form-control" formControlName="pNo"
+                        [ngClass]="{ 'is-invalid': registerForm.get('pNo').touched && registerForm.get('pNo').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="registerForm.get('pNo').hasError('required')">Phone number can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" formControlName="email"
+                        [ngClass]="{ 'is-invalid': registerForm.get('email').touched && registerForm.get('email').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="registerForm.get('email').hasError('required')">Email can't be blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <a [routerLink]="['/login']">Have an account? Sign In.</a>
+                </div>
+
                 <button class="btn btn-primary btn-block btn-lg" [disabled]="registerForm.invalid">Register</button>
             </form>
         </div>

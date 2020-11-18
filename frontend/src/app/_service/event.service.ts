@@ -23,15 +23,30 @@ export class EventService {
     return this.client.get<Events[]>(environment.BASE_API_URL + "events/getUpcomingEvents");
   }
 
+  public getEvent (id): Observable<Events> {
+    const body = {
+      "eventID": id
+    }
+    return this.client.post<Events>(environment.BASE_API_URL + "events/getEvent", body).pipe(
+      map(
+        result => {
+          return result;
+        },
+        () => {
+          return null;
+        }
+      )
+    );
+  }
+
   public addEvent (form: FormGroup): Observable<boolean> {
     const body = {
       "name": form.value.name,
       "description": form.value.description,
       "location": form.value.location,
-      "registStart": form.value.registStart,
-      "registEnd": form.value.registEnd,
       "eventDate": form.value.eventDate,
-      "imageURL": form.value.imageURL
+      "imageURL": form.value.imageURL,
+      "price": form.value.price
     };
 
     return this.client.post<Events>(environment.BASE_API_URL + 'events/addEvent', body).pipe(
@@ -46,20 +61,20 @@ export class EventService {
     );
   }
 
-  public registerEvent (id: any): Observable<boolean> {
-    const body = {
-      "eventID": id
-    };
+  // public registerEvent (id: any): Observable<boolean> {
+  //   const body = {
+  //     "eventID": id
+  //   };
 
-    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/updateUserEvent', body).pipe(
-      map(result => {
-        if (result.status === false) {
-          return false;
-        }
-        else {
-          return true;
-        }
-      })
-    );
-  }
+  //   return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/updateUserEvent', body).pipe(
+  //     map(result => {
+  //       if (result.status === false) {
+  //         return false;
+  //       }
+  //       else {
+  //         return true;
+  //       }
+  //     })
+  //   );
+  // }
 }

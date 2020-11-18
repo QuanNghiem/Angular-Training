@@ -18,6 +18,9 @@ import { HeaderComponent } from './component/header/header.component';
 import { ShowUsersComponent } from './component/show-users/show-users.component';
 import { HomeComponent } from './component/home/home.component';
 import { RegisterComponent } from './component/register/register.component';
+import { EventDetailsComponent } from './component/event-details/event-details.component';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 // const routes: Routes = [
 //   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -37,6 +40,9 @@ import { RegisterComponent } from './component/register/register.component';
     ShowUsersComponent,
     HomeComponent,
     RegisterComponent,
+    EventDetailsComponent,
+    OrderHistoryComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class DisplayEventComponent implements OnInit, OnDestroy {
 
   eventSubscriber: Subscription;
 
+
   eventList: Events[] = [];
 
   constructor (private _eventService: EventService) { }

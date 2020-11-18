@@ -34,35 +34,46 @@ function passwordMatchAdd (form: FormGroup) {
 export class ShowUsersComponent implements OnInit, OnDestroy {
   selectedId: number;
   selectedName: string;
+  selectedPNo: number;
+  selectedEmail: string;
+
   updateForm: FormGroup;
   addForm: FormGroup;
-  userList: User[] = [];
+
   userSubscriber: Subscription;
+  userList: User[] = [];
 
   constructor (private fb: FormBuilder, private _userService: UserService) { }
 
   ngOnInit (): void {
     this.getUsers();
-    this.initForm();
+    this.initUpdateForm();
+    this.initAddForm();
   }
 
-  initForm () {
+  initUpdateForm () {
     this.updateForm = this.fb.group({
       username: ['', Validators.required],
       pass: ['', Validators.required],
       confirmPass: [''],
-      type: ['', Validators.required]
+      type: ['', Validators.required],
+      pNo: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
     },
       {
         validators: [passwordMatch]
       }
     );
+  }
 
+  initAddForm () {
     this.addForm = this.fb.group({
       usernameAdd: ['', Validators.required],
       passAdd: ['', Validators.required],
       confirmPassAdd: [''],
-      typeAdd: ['', Validators.required]
+      typeAdd: ['', Validators.required],
+      pNoAdd: [0, [Validators.required]],
+      emailAdd: [null, [Validators.required, Validators.email]],
     },
       {
         validators: [passwordMatchAdd]
@@ -108,9 +119,11 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     });
   }
 
-  setId (id, username) {
+  setId (id, username, pNo, email) {
     this.selectedId = id;
     this.selectedName = username;
+    this.selectedPNo = pNo;
+    this.selectedEmail = email;
   }
 
   ngOnDestroy () {

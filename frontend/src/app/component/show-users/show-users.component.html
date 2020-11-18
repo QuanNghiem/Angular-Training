@@ -10,6 +10,8 @@
             <th id="id">ID</th>
             <th id="username">Username</th>
             <th id="type">Type</th>
+            <th id="pNo">Phone Number</th>
+            <th id="email">Email</th>
             <th id="button">Edit/Delete</th>
         </tr>
     </thead>
@@ -19,9 +21,11 @@
             <td>{{i?.username}}</td>
             <td *ngIf="i.type === 1">Admin</td>
             <td *ngIf="i.type === 0">User</td>
+            <td>{{i?.pNo}}</td>
+            <td>{{i?.email}}</td>
             <td>
                 <p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
-                        (click)="setId(i._id, i.username)">Edit</button></p>
+                        (click)="setId(i._id, i.username, i.pNo, i.email)">Edit</button></p>
                 <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
             </td>
         </tr>
@@ -67,6 +71,27 @@
                                 [ngClass]="{ 'is-invalid': updateForm.get('confirmPass').invalid }">
                             <span *ngIf="updateForm.get('confirmPass').hasError('notMatch')">
                                 <span>Password must match</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pNo">Phone Number</label>
+                            <input type="number" id="pNo" name="pNo" class="form-control" formControlName="pNo"
+                                placeholder='{{selectedPNo}}'
+                                [ngClass]="{ 'is-invalid': updateForm.get('pNo').touched && updateForm.get('pNo').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="updateForm.get('pNo').hasError('required')">Phone number can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" formControlName="email"
+                                placeholder='{{selectedEmail}}'
+                                [ngClass]="{ 'is-invalid': updateForm.get('email').touched && updateForm.get('email').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="updateForm.get('email').hasError('required')">Email can't be blank</span>
                             </span>
                         </div>
 
@@ -131,6 +156,27 @@
                                 [ngClass]="{ 'is-invalid': addForm.get('confirmPassAdd').invalid }">
                             <span *ngIf="addForm.get('confirmPassAdd').hasError('notMatch')">
                                 <span>Password must match</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pNoAdd">Phone Number</label>
+                            <input type="number" id="pNoAdd" name="pNoAdd" class="form-control" formControlName="pNoAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('pNoAdd').touched && addForm.get('pNoAdd').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="addForm.get('pNoAdd').hasError('required')">Phone number can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailAdd">Email</label>
+                            <input type="email" id="emailAdd" name="emailAdd" class="form-control"
+                                formControlName="emailAdd"
+                                [ngClass]="{ 'is-invalid': addForm.get('emailAdd').touched && addForm.get('emailAdd').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="addForm.get('emailAdd').hasError('required')">Email can't be blank</span>
+                                <span *ngIf="addForm.get('emailAdd').hasError('email')">Invalid email</span>
                             </span>
                         </div>
 

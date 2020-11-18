@@ -33,7 +33,7 @@
                     </span>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="registStart">Registration Start Date</label>
                     <input type="date" id="registStart" name="registStart" class="form-control"
                         formControlName="registStart"
@@ -52,7 +52,7 @@
                         <span *ngIf="myForm.get('registEnd').hasError('required')">Registration end date can't be
                             blank</span>
                     </span>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="eventDate">Event Date</label>
@@ -61,6 +61,15 @@
                     <span class="invalid-feedback">
                         <span *ngIf="myForm.get('eventDate').hasError('required')">Event date can't be
                             blank</span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Ticket price</label>
+                    <input type="number" id="price" name="price" class="form-control" formControlName="price"
+                        [ngClass]="{ 'is-invalid': myForm.get('price').touched && myForm.get('price').invalid }">
+                    <span class="invalid-feedback">
+                        <span *ngIf="myForm.get('price').hasError('required')">Price can't be blank</span>
                     </span>
                 </div>
 
@@ -76,6 +85,8 @@
                 <button class="btn btn-primary btn-block btn-lg" [disabled]="myForm.invalid">Create Event</button>
             </form>
         </div>
-
     </div>
 </div>
+
+<a class="btn btn-success btn-lg" style="position: fixed; bottom: 0px; right: 0px;"
+    [routerLink]="['/displayEvent']">Back</a>

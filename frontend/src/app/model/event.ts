@@ -3,8 +3,7 @@ export class Events {
     name: string;
     description: string;
     location: string;
-    registStart: Date;
-    registEnd: Date;
     eventDate: Date;
     imageURL: string;
+    price: Number;
 }

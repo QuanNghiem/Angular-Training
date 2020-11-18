@@ -20,9 +20,11 @@
                         <span *ngIf="loginForm.get('pass').hasError('required')">Password can't be blank</span>
                     </span>
                 </div>
-                <a class="nav-link" [routerLink]="['/register']">Don't have an account? Sign Up.</a>
-                <button class="btn btn-primary btn-block btn-lg" [disabled]="loginForm.invalid">Login</button>
+                <div class="form-group">
+                    <a [routerLink]="['/register']">Don't have an account? Sign Up.</a>
+                </div>
 
+                <button class="btn btn-primary btn-block btn-lg" [disabled]="loginForm.invalid">Login</button>
             </form>
         </div>
     </div>

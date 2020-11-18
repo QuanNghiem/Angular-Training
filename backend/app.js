@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 
 var usersRouter = require('./routes/users');
 var eventsRouter = require('./routes/events');
+var purchasesRouter = require('./routes/purchases');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use(expressJwt({
     '/users/login',
     '/events/getEvents',
     '/events/getUpcomingEvents',
+    '/events/getEvent',
   ]
 })
 );
@@ -53,6 +55,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 // Route
 app.use('/events', eventsRouter);
 app.use('/users', usersRouter);
+app.use('/purchases', purchasesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
