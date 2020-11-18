@@ -61,20 +61,39 @@ export class EventService {
     );
   }
 
-  // public registerEvent (id: any): Observable<boolean> {
-  //   const body = {
-  //     "eventID": id
-  //   };
+  public updateEvent (form: FormGroup, id): Observable<boolean> {
+    const body = {
+      "_id": id,
+      "name": form.value.name,
+      "description": form.value.description,
+      "location": form.value.location,
+      "eventDate": form.value.eventDate,
+      "imageURL": form.value.imageURL,
+      "price": form.value.price
+    };
 
-  //   return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/updateUserEvent', body).pipe(
-  //     map(result => {
-  //       if (result.status === false) {
-  //         return false;
-  //       }
-  //       else {
-  //         return true;
-  //       }
-  //     })
-  //   );
-  // }
+    return this.client.put<Events>(environment.BASE_API_URL + 'events/updateEvent', body).pipe(
+      map(
+        result => {
+          return true;
+        },
+        error => {
+          return false;
+        }
+      )
+    );
+  }
+
+  public deleteEvent (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'events/deleteEvent/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
 }

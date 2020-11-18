@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       usernameR: ['', Validators.required],
       passR: ['', Validators.required],
       confirmPassR: [''],
-      pNo: [0, [Validators.required]],
+      pNo: [null, [Validators.required, Validators.maxLength(10)]],
       email: [null, [Validators.required, Validators.email]],
     },
       {

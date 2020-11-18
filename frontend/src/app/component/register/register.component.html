@@ -33,10 +33,13 @@
 
                 <div class="form-group">
                     <label for="pNo">Phone Number</label>
-                    <input type="number" id="pNo" name="pNo" class="form-control" formControlName="pNo"
+                    <input type="text" id="pNo" name="pNo" class="form-control" formControlName="pNo"
+                        mask="(000) 000-0000"
                         [ngClass]="{ 'is-invalid': registerForm.get('pNo').touched && registerForm.get('pNo').invalid }">
                     <span class="invalid-feedback">
                         <span *ngIf="registerForm.get('pNo').hasError('required')">Phone number can't be blank</span>
+                        <span *ngIf="registerForm.get('pNo').hasError('maxLength')">Phone number can't have more than 10
+                            numbers</span>
                     </span>
                 </div>
 
@@ -53,7 +56,7 @@
                     <a [routerLink]="['/login']">Have an account? Sign In.</a>
                 </div>
 
-                <button class="btn btn-primary btn-block btn-lg" [disabled]="registerForm.invalid">Register</button>
+                <button class="btn btn-dark btn-block btn-lg" [disabled]="registerForm.invalid">Register</button>
             </form>
         </div>
     </div>

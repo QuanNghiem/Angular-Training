@@ -21,10 +21,10 @@
             <td>{{i?.username}}</td>
             <td *ngIf="i.type === 1">Admin</td>
             <td *ngIf="i.type === 0">User</td>
-            <td>{{i?.pNo}}</td>
+            <td>{{i?.pNo | mask:"(000) 000-0000"}}</td>
             <td>{{i?.email}}</td>
             <td>
-                <p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+                <p><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"
                         (click)="setId(i._id, i.username, i.pNo, i.email)">Edit</button></p>
                 <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
             </td>
@@ -32,7 +32,7 @@
     </tbody>
 </table>
 
-<button class="btn btn-success btn-lg" style="position: fixed; bottom: 0px; right: 0px;" data-toggle="modal"
+<button class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;" data-toggle="modal"
     data-target="#myModal1">Add User</button>
 
 <div class="container">
@@ -76,12 +76,15 @@
 
                         <div class="form-group">
                             <label for="pNo">Phone Number</label>
-                            <input type="number" id="pNo" name="pNo" class="form-control" formControlName="pNo"
-                                placeholder='{{selectedPNo}}'
+                            <input type="text" id="pNo" name="pNo" class="form-control" formControlName="pNo"
+                                placeholder='{{selectedPNo | mask:"(000) 000-0000"}}' mask="(000) 000-0000"
                                 [ngClass]="{ 'is-invalid': updateForm.get('pNo').touched && updateForm.get('pNo').invalid }">
                             <span class="invalid-feedback">
                                 <span *ngIf="updateForm.get('pNo').hasError('required')">Phone number can't be
                                     blank</span>
+                                <span *ngIf="updateForm.get('pNo').hasError('maxLength')">Phone number can't have more
+                                    than 10
+                                    numbers</span>
                             </span>
                         </div>
 
@@ -161,11 +164,15 @@
 
                         <div class="form-group">
                             <label for="pNoAdd">Phone Number</label>
-                            <input type="number" id="pNoAdd" name="pNoAdd" class="form-control" formControlName="pNoAdd"
+                            <input type="text" id="pNoAdd" name="pNoAdd" class="form-control" formControlName="pNoAdd"
+                                mask="(000) 000-0000"
                                 [ngClass]="{ 'is-invalid': addForm.get('pNoAdd').touched && addForm.get('pNoAdd').invalid }">
                             <span class="invalid-feedback">
                                 <span *ngIf="addForm.get('pNoAdd').hasError('required')">Phone number can't be
                                     blank</span>
+                                <span *ngIf="addForm.get('pNoAdd').hasError('maxLength')">Phone number can't have more
+                                    than 10
+                                    numbers</span>
                             </span>
                         </div>
 

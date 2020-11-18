@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user';
+import { PurchaseService } from 'src/app/_service/purchase.service';
 import { UserService } from 'src/app/_service/user.service';
 
 function passwordMatch (form: FormGroup) {
@@ -43,7 +44,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
   userSubscriber: Subscription;
   userList: User[] = [];
 
-  constructor (private fb: FormBuilder, private _userService: UserService) { }
+  constructor (private fb: FormBuilder, private _userService: UserService, private _purchaseService: PurchaseService) { }
 
   ngOnInit (): void {
     this.getUsers();
@@ -57,7 +58,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
       pass: ['', Validators.required],
       confirmPass: [''],
       type: ['', Validators.required],
-      pNo: [null, [Validators.required]],
+      pNo: [null, [Validators.required, Validators.maxLength(10)]],
       email: [null, [Validators.required, Validators.email]],
     },
       {
@@ -72,7 +73,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
       passAdd: ['', Validators.required],
       confirmPassAdd: [''],
       typeAdd: ['', Validators.required],
-      pNoAdd: [0, [Validators.required]],
+      pNoAdd: [null, [Validators.required, Validators.maxLength(10)]],
       emailAdd: [null, [Validators.required, Validators.email]],
     },
       {
@@ -108,7 +109,11 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
   onDelete (id) {
     this.userSubscriber = this._userService.deleteUser(id).subscribe(data => {
       if (data === true) {
-        location.reload(true);
+        this.userSubscriber = this._purchaseService.deleteByUser(id).subscribe(result => {
+          if (data === true) {
+            location.reload(true);
+          }
+        });
       }
     })
   }

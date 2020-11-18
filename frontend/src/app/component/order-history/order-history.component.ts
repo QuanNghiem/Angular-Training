@@ -20,7 +20,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   }
 
   getOrders () {
-    this.purchaseSubscriber = this._purchaseService.getEvents().subscribe(result => {
+    this.purchaseSubscriber = this._purchaseService.getTickets().subscribe(result => {
       if (result) {
         this.orderList = result;
       }

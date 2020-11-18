@@ -13,7 +13,7 @@ export class PurchaseService {
 
   constructor (private client: HttpClient) { }
 
-  public getEvents (): Observable<Purchase[]> {
+  public getTickets (): Observable<Purchase[]> {
     return this.client.get<Purchase[]>(environment.BASE_API_URL + "purchases/getPurchasesHistory");
   }
 
@@ -33,7 +33,7 @@ export class PurchaseService {
     );
   }
 
-  public addEvent (form: FormGroup, id): Observable<Purchase> {
+  public addTicket (form: FormGroup, id): Observable<Purchase> {
     const body = {
       "eventID": id,
       "amount": form.value.amount,
@@ -48,6 +48,32 @@ export class PurchaseService {
           return error;
         }
       )
+    );
+  }
+
+  public deleteByUser (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'purchases/deleteByUser/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public deleteByEvent (id): Observable<boolean> {
+    return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'purchases/deleteByEvent/' + id).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
     );
   }
 }
