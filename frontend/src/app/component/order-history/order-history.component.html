@@ -12,6 +12,9 @@
             <th id="email">Email</th>
             <th id="eventName">Event Name</th>
             <th id="eventDate">Event Date</th>
+            <th id="ticketPrice">Ticket Price</th>
+            <th id="ticketAmount">Amount</th>
+            <th id="payment">Payment</th>
             <th id="purchaseDate">Purchase Date</th>
         </tr>
     </thead>
@@ -21,8 +24,11 @@
             <td>{{i?.pNo | mask:"(000) 000-0000"}}</td>
             <td>{{i?.email}}</td>
             <td>{{i?.eventName}}</td>
-            <td>{{i?.eventDate | date}}</td>
-            <td>{{i?.purchaseDate | date}}</td>
+            <td>{{i?.eventDate | date:'MM/dd/yyyy, H:m'}}</td>
+            <td>{{i?.ticketPrice | currency}}</td>
+            <td>{{i?.ticketAmount}}</td>
+            <td>{{i?.ticketAmount | purchase: i?.ticketPrice | currency}}</td>
+            <td>{{i?.purchaseDate | date:'MM/dd/yyyy, H:m'}}</td>
         </tr>
     </tbody>
 </table>

@@ -21,10 +21,11 @@
             <td>{{i?.name}}</td>
             <td>{{i?.description}}</td>
             <td>{{i?.location}}</td>
-            <td>{{i?.eventDate | date}}</td>
+            <td>{{i?.eventDate | date:'MM/dd/yyyy, H:m'}}</td>
             <td>{{i?.price | currency}}</td>
             <td>
-                <!-- <p><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal">Edit</button></p> -->
+                <p><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" (click)="updateForm(i)"
+                        data-target="#myModal">Edit</button></p>
                 <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
             </td>
             <td><a class="btn btn-secondary btn-lg" [routerLink]="['/sales', i._id]">Ticket Sales</a></td>
@@ -34,3 +35,90 @@
 
 <a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/addEvent']">Add
     Event</a>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Event</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="eventForm" (ngSubmit)="eventForm.valid && onSubmit(eventForm)">
+                        <div class="form-group">
+                            <label for="name">Event Name</label>
+                            <input type="text" id="name" name="name" class="form-control" formControlName="name"
+                                [ngClass]="{ 'is-invalid': eventForm.get('name').touched && eventForm.get('name').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('name').hasError('required')">Event name can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" class="form-control"
+                                formControlName="description"
+                                [ngClass]="{ 'is-invalid': eventForm.get('description').touched && eventForm.get('description').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('description').hasError('required')">Description can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" class="form-control"
+                                formControlName="location"
+                                [ngClass]="{ 'is-invalid': eventForm.get('location').touched && eventForm.get('location').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('location').hasError('required')">Location can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventDate">Event Date</label>
+                            <input type="datetime-local" id="eventDate" name="eventDate" class="form-control"
+                                formControlName="eventDate"
+                                [ngClass]="{ 'is-invalid': eventForm.get('eventDate').touched && eventForm.get('eventDate').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('eventDate').hasError('required')">Event date can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Ticket price</label>
+                            <input type="text" id="price" name="price" class="form-control" formControlName="price"
+                                [ngClass]="{ 'is-invalid': eventForm.get('price').touched && eventForm.get('price').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('price').hasError('required')">Price can't be blank</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageURL">Image URL</label>
+                            <input type="text" id="imageURL" name="imageURL" class="form-control"
+                                formControlName="imageURL"
+                                [ngClass]="{ 'is-invalid': eventForm.get('imageURL').touched && eventForm.get('imageURL').invalid }">
+                            <span class="invalid-feedback">
+                                <span *ngIf="eventForm.get('imageURL').hasError('required')">Image URL can't be
+                                    blank</span>
+                            </span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-dark btn-block btn-lg" [disabled]="eventForm.invalid">
+                                Update Event
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

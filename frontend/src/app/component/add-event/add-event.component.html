@@ -20,7 +20,8 @@
                         formControlName="description"
                         [ngClass]="{ 'is-invalid': eventForm.get('description').touched && eventForm.get('description').invalid }">
                     <span class="invalid-feedback">
-                        <span *ngIf="eventForm.get('description').hasError('required')">Description can't be blank</span>
+                        <span *ngIf="eventForm.get('description').hasError('required')">Description can't be
+                            blank</span>
                     </span>
                 </div>
 
@@ -33,30 +34,10 @@
                     </span>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label for="registStart">Registration Start Date</label>
-                    <input type="date" id="registStart" name="registStart" class="form-control"
-                        formControlName="registStart"
-                        [ngClass]="{ 'is-invalid': eventForm.get('registStart').touched && eventForm.get('registStart').invalid }">
-                    <span class="invalid-feedback">
-                        <span *ngIf="eventForm.get('registStart').hasError('required')">Registration start date can't be
-                            blank</span>
-                    </span>
-                </div>
-
-                <div class="form-group">
-                    <label for="registEnd">Registration End Date</label>
-                    <input type="date" id="registEnd" name="registEnd" class="form-control" formControlName="registEnd"
-                        [ngClass]="{ 'is-invalid': eventForm.get('registEnd').touched && eventForm.get('registEnd').invalid }">
-                    <span class="invalid-feedback">
-                        <span *ngIf="eventForm.get('registEnd').hasError('required')">Registration end date can't be
-                            blank</span>
-                    </span>
-                </div> -->
-
                 <div class="form-group">
                     <label for="eventDate">Event Date</label>
-                    <input type="date" id="eventDate" name="eventDate" class="form-control" formControlName="eventDate"
+                    <input type="datetime-local" id="eventDate" name="eventDate" class="form-control"
+                        formControlName="eventDate"
                         [ngClass]="{ 'is-invalid': eventForm.get('eventDate').touched && eventForm.get('eventDate').invalid }">
                     <span class="invalid-feedback">
                         <span *ngIf="eventForm.get('eventDate').hasError('required')">Event date can't be
@@ -82,7 +63,7 @@
                     </span>
                 </div>
 
-                <button class="btn btn-primary btn-block btn-lg" [disabled]="eventForm.invalid">Create Event</button>
+                <button class="btn btn-dark btn-block btn-lg" [disabled]="eventForm.invalid">Create Event</button>
             </form>
         </div>
     </div>

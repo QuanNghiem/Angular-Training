@@ -118,4 +118,42 @@ router.delete('/deleteEvent/:id', (req, res) => {
     });
 });
 
+router.put('/updateEvent', function (req, res) {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                Event.findByIdAndUpdate(
+                    { "_id": req.body._id },
+                    {
+                        $set:
+                        {
+                            name: req.body.name,
+                            description: req.body.description,
+                            location: req.body.location,
+                            eventDate: req.body.eventDate,
+                            imageURL: req.body.imageURL,
+                            price: req.body.price
+                        }
+                    },
+                    { upsert: false },
+                    function (err, data) {
+                        if (err) {
+                            res.status(500).send(err);
+                        }
+                        else {
+                            res.send({ status: true });
+                        }
+                    }
+                )
+            }
+        }
+    });
+});
+
 module.exports = router;

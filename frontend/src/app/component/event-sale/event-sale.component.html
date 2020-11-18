@@ -3,10 +3,6 @@
 </div>
 
 <div *ngIf="orderList.length === 0" class="alert alert-dark">No tickets to show!</div>
-<div *ngIf="orderList.length !== 0">
-    <button class="btn btn-dark btn-lg" (click)="exportExcel()">Download</button>
-</div>
-
 
 <table class="table" id="ticket-table">
     <thead class="thead-dark">
@@ -14,6 +10,8 @@
             <th id="eventID" colspan="4">Event ID: {{eventID}}</th>
             <th id="eventName" colspan="3">Event Name: {{orderList[0]?.eventName}}</th>
         </tr>
+    </thead>
+    <thead class="thead-light">
         <tr>
             <th id="userName">Username</th>
             <th id="pNo">Phone Number</th>
@@ -32,10 +30,16 @@
             <td>{{i?.ticketPrice | currency}}</td>
             <td>{{i?.ticketAmount}}</td>
             <td>{{i?.ticketAmount | purchase: i?.ticketPrice | currency}}</td>
-            <td>{{i?.purchaseDate | date}}</td>
+            <td>{{i?.purchaseDate | date:'MM/dd/yyyy, H:m'}}</td>
         </tr>
     </tbody>
 </table>
+
+<div class="float-right">
+    <div *ngIf=" orderList.length !==0">
+        <button class="btn btn-dark btn-lg " (click)="exportExcel()">Download</button>
+    </div>
+</div>
 
 <a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;"
     [routerLink]="['/displayEvent']">Back</a>

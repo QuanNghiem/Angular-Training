@@ -188,25 +188,4 @@ router.get('/getUser', function (req, res) {
   });
 });
 
-// router.put('/updateUserEvent', function (req, res) {
-//   User.findByIdAndUpdate(
-//     { "_id": req.user.id },
-//     {
-//       $addToSet: { eventRegistered: [ req.body.eventID ] },
-//     },
-//     { upsert: true },
-//     function (err, data) {
-//       if (err) {
-//         res.status(500).send(err);
-//       }
-//       if (!data) {
-//         res.status(401).send({ status: false });
-//       }
-//       else {
-//         res.send({ status: true });
-//       }
-//     }
-//   )
-// });
-
 module.exports = router;

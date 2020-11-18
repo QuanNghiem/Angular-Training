@@ -27,13 +27,20 @@
                         <td>{{event?.price | currency}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"> <button class="btn btn-success btn-sm" data-toggle="modal"
-                                data-target="#ticketModal" (click)="getEventID(event?._id)">Purchase tickets</button>
+                        <td colspan="2"> <button class="btn btn-dark btn-sm" data-toggle="modal"
+                                data-target="#ticketModal" (click)="getEventID(event?._id)"
+                                [disabled]="!checkLogIn()">Purchase tickets</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<div *ngIf="!checkLogIn()" class="container">
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> Please login to purchase tickets.
     </div>
 </div>
 
@@ -46,8 +53,8 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Change username and password</h4>
-                    <button id="closeForm" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Purchase Tickets</h4>
+                    <button type="button" class="close" data-dismiss="modal" #closeModal>&times;</button>
                 </div>
                 <div class="modal-body">
                     <form [formGroup]="ticketForm" (ngSubmit)="ticketForm.valid && purchaseTickets(ticketForm)">

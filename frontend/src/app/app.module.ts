@@ -28,7 +28,6 @@ import { DisplayEventComponent } from './component/display-event/display-event.c
 import { EventDetailsComponent } from './component/event-details/event-details.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { EventSaleComponent } from './component/event-sale/event-sale.component';
-import { PhonePipe } from './_helper/phone.pipe';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -46,7 +45,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     OrderHistoryComponent,
     EventSaleComponent,
     PurchasePipe,
-    PhonePipe,
   ],
   imports: [
     BrowserModule,
