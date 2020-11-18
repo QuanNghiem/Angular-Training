@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+    <h1>Ticket Sales</h1>
+</div>
+
+<div *ngIf="orderList.length ===0" class="alert alert-info">No event to show!</div>
+
+<button class="btn btn-dark btn-lg" (click)="exportExcel()">Download</button>
+
+<table class="table" id="ticket-table">
+    <thead class="thead-dark">
+        <tr>
+            <th id="eventID" colspan="4">Event ID: {{eventID}}</th>
+            <th id="eventName" colspan="3">Event Name: {{orderList[0]?.eventName}}</th>
+        </tr>
+        <tr>
+            <th id="userName">Username</th>
+            <th id="pNo">Phone Number</th>
+            <th id="email">Email</th>
+            <th id="ticketPrice">Ticket Price</th>
+            <th id="ticketAmount">Amount</th>
+            <th id="payment">Payment</th>
+            <th id="purchaseDate">Purchase Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of orderList;">
+            <td>{{i?.userName}}</td>
+            <td>{{i?.pNo | phone}}</td>
+            <td>{{i?.email}}</td>
+            <td>{{i?.ticketPrice | currency}}</td>
+            <td>{{i?.ticketAmount}}</td>
+            <td>{{i?.ticketAmount | purchase: i?.ticketPrice | currency}}</td>
+            <td>{{i?.purchaseDate | date}}</td>
+        </tr>
+    </tbody>
+</table>

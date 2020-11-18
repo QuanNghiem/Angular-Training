@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Purchase } from 'src/app/model/purchase';
 import { PurchaseService } from 'src/app/_service/purchase.service';
@@ -8,7 +8,7 @@ import { PurchaseService } from 'src/app/_service/purchase.service';
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent implements OnInit {
+export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   orderList: Purchase[] = [];
   purchaseSubscriber: Subscription;
@@ -25,5 +25,11 @@ export class OrderHistoryComponent implements OnInit {
         this.orderList = result;
       }
     });
+  }
+
+  ngOnDestroy () {
+    if (this.purchaseSubscriber) {
+      this.purchaseSubscriber.unsubscribe();
+    }
   }
 }

@@ -71,4 +71,25 @@ router.get('/getPurchasesHistory', function (req, res) {
     );
 });
 
+router.post('/getSales', function (req, res) {
+    Purchase.find(
+        {
+            eventID: req.body.eventID
+        }
+    ).sort(
+        {
+            purchaseDate: 'descending'
+        }
+    ).exec(
+        function (err, data) {
+            if (err) {
+                res.status(500).json(err);
+            }
+            else {
+                res.status(200).json(data);
+            }
+        }
+    );
+});
+
 module.exports = router;

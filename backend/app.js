@@ -45,6 +45,7 @@ app.use(expressJwt({
     '/events/getEvents',
     '/events/getUpcomingEvents',
     '/events/getEvent',
+    '/purchases/getSales'
   ]
 })
 );
