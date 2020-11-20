@@ -24,7 +24,7 @@
             <td>{{i?.eventDate | date:'MM/dd/yyyy, H:m'}}</td>
             <td>{{i?.price | currency}}</td>
             <td>
-                <p><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" (click)="updateForm(i)"
+                <p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" (click)="updateForm(i)"
                         data-target="#myModal">Edit</button></p>
                 <p><button class="btn btn-danger btn-sm" (click)="onDelete(i._id)">Delete</button></p>
             </td>
@@ -33,8 +33,8 @@
     </tbody>
 </table>
 
-<a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/addEvent']">Add
-    Event</a>
+<button class="btn btn-success btn-lg mr-2" [routerLink]="['/addEvent']" [style]="{'float':'right'}">Add
+    Event</button>
 
 <div class="container">
     <!-- Modal -->
@@ -112,9 +112,11 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-dark btn-block btn-lg" [disabled]="eventForm.invalid">
-                                Update Event
-                            </button>
+                            <div class="float right">
+                                <button class="btn btn-success btn-lg" [disabled]="eventForm.invalid">
+                                    Update Event
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

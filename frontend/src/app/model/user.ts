@@ -4,4 +4,7 @@ export class User {
     public type: any;
     public pNo: number;
     public email: string;
+    public deleteFlag: boolean;
+    public updatedBy: string;
+    public updatedOn: Date;
 }

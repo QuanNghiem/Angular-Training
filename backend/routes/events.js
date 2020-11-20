@@ -22,7 +22,10 @@ router.post('/addEvent', function (req, res) {
                         location: req.body.location,
                         eventDate: req.body.eventDate,
                         imageURL: req.body.imageURL,
-                        price: req.body.price
+                        price: req.body.price,
+                        updatedOn: new Date(),
+                        updatedBy: user.username,
+                        deleteFlag: false
                     },
                     function (err, data) {
                         if (err) {
@@ -54,7 +57,9 @@ router.post('/getEvent', function (req, res) {
 
 router.get('/getEvents', function (req, res) {
     Event.find(
-        {}
+        {
+            "deleteFlag": false
+        }
     ).sort(
         {
             eventDate: 'ascending'
@@ -69,6 +74,33 @@ router.get('/getEvents', function (req, res) {
             }
         }
     );
+});
+
+router.get('/getEventsDelete', function (req, res) {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                Event.find(
+                    {
+                        "deleteFlag": true
+                    }
+                    , function (err, data) {
+                        if (err) {
+                            res.json(err);
+                        }
+                        else {
+                            res.json(data);
+                        }
+                    })
+            }
+        }
+    });
 });
 
 router.get('/getUpcomingEvents', function (req, res) {
@@ -138,13 +170,92 @@ router.put('/updateEvent', function (req, res) {
                             location: req.body.location,
                             eventDate: req.body.eventDate,
                             imageURL: req.body.imageURL,
-                            price: req.body.price
+                            price: req.body.price,
+                            updatedOn: new Date(),
+                            updatedBy: user.username,
+                            deleteFlag: false
                         }
                     },
                     { upsert: false },
                     function (err, data) {
                         if (err) {
                             res.status(500).send(err);
+                        }
+                        else {
+                            res.send({ status: true });
+                        }
+                    }
+                )
+            }
+        }
+    });
+});
+
+router.put('/markForDelete', function (req, res) {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                Event.findByIdAndUpdate(
+                    { "_id": req.body._id },
+                    {
+                        $set:
+                        {
+                            updatedOn: new Date(),
+                            updatedBy: user.username,
+                            deleteFlag: true
+                        }
+                    },
+                    { upsert: true },
+                    function (err, data) {
+                        if (err) {
+                            res.status(500).send(err);
+                        }
+                        if (!data) {
+                            res.status(500).send({ status: false });
+                        }
+                        else {
+                            res.send({ status: true });
+                        }
+                    }
+                )
+            }
+        }
+    });
+});
+
+router.put('/removeMarkForDelete', function (req, res) {
+    User.findById(req.user.id, function (errUser, user) {
+        if (errUser) {
+            res.status(401).send('Invalid token');
+        }
+        if (!user) {
+            res.status(401).send('Invalid token');
+        }
+        else {
+            if (user.type === 1) {
+                Event.findByIdAndUpdate(
+                    { "_id": req.body._id },
+                    {
+                        $set:
+                        {
+                            updatedOn: new Date(),
+                            updatedBy: user.username,
+                            deleteFlag: false
+                        }
+                    },
+                    { upsert: true },
+                    function (err, data) {
+                        if (err) {
+                            res.status(500).send(err);
+                        }
+                        if (!data) {
+                            res.status(500).send({ status: false });
                         }
                         else {
                             res.send({ status: true });

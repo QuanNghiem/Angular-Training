@@ -20,7 +20,7 @@ export class DisplayEventComponent implements OnInit, OnDestroy {
 
   selectedEventID: any;
 
-  constructor (private _eventService: EventService, private _purchaseService: PurchaseService, private fb: FormBuilder) { }
+  constructor (private _eventService: EventService, private fb: FormBuilder) { }
 
   ngOnInit (): void {
     this.getEvents();
@@ -34,13 +34,9 @@ export class DisplayEventComponent implements OnInit, OnDestroy {
   }
 
   onDelete (id) {
-    this.eventSubscriber = this._eventService.deleteEvent(id).subscribe(data => {
+    this.eventSubscriber = this._eventService.markForDelete(id).subscribe(data => {
       if (data === true) {
-        this.eventSubscriber = this._purchaseService.deleteByEvent(id).subscribe(result => {
-          if (data === true) {
-            location.reload(true);
-          }
-        })
+        this.getEvents();
       }
     });
   }
@@ -65,7 +61,6 @@ export class DisplayEventComponent implements OnInit, OnDestroy {
       eventDate: event.eventDate,
       imageURL: event.imageURL,
       price: event.price
-
     });
   }
 
@@ -74,7 +69,7 @@ export class DisplayEventComponent implements OnInit, OnDestroy {
       result => {
         if (result === true) {
           this.eventForm.reset();
-          location.reload(true);
+          this.getEvents();
         }
       }
     );

@@ -6,6 +6,9 @@ const UserSchema = new mongoose.Schema({
     type: { type: Number },
     pNo: { type: Number },
     email: { type: String },
+    updatedOn: { type: Date },
+    updatedBy: { type: String },
+    deleteFlag: { type: Boolean }
 });
 
 module.exports = mongoose.model('User', UserSchema);

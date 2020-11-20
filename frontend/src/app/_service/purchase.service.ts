@@ -51,6 +51,57 @@ export class PurchaseService {
     );
   }
 
+  public markForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'purchases/markForDeleteEvent', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public removeMarkForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'purchases/removeMarkForDelete', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  // public markForDeleteUser (id: any): Observable<boolean> {
+  //   const body = {
+  //     "userID": id
+  //   };
+
+  //   return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'purchases/markForDeleteUser', body).pipe(
+  //     map(result => {
+  //       if (result.status === false) {
+  //         return false;
+  //       }
+  //       else {
+  //         return true;
+  //       }
+  //     })
+  //   );
+  // }
+
   public deleteByUser (id): Observable<boolean> {
     return this.client.delete<{ status: boolean }>(environment.BASE_API_URL + 'purchases/deleteByUser/' + id).pipe(
       map(result => {

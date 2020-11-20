@@ -7,6 +7,16 @@ import { EventService } from 'src/app/_service/event.service';
 import { PurchaseService } from 'src/app/_service/purchase.service';
 import { ViewChild, ElementRef } from '@angular/core';
 
+function amountNotNegative (form: FormGroup) {
+  const amount = form.controls['amount'];
+
+  if (amount.value <= 0) {
+    form.controls['amount'].setErrors({ negative: true });
+  } else {
+    form.controls['amount'].setErrors(null);
+  }
+}
+
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -43,9 +53,13 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 
   initForm () {
-    this.ticketForm = this.fb.group({
-      amount: [null, [Validators.required]]
-    }
+    this.ticketForm = this.fb.group(
+      {
+        amount: [null, [Validators.required]]
+      },
+      {
+        validators: [amountNotNegative]
+      }
     );
   }
 

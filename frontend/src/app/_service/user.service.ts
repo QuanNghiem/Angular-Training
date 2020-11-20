@@ -32,7 +32,6 @@ export class UserService {
         }
         else {
           this._cookie.set('token', result.token);
-          //console.log(this._cookie.get('token'));
           return true;
         }
       })
@@ -124,6 +123,44 @@ export class UserService {
         }
       })
     );
+  }
+
+  public markForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/markForDelete', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public removeMarkForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'users/removeMarkForDelete', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public getUsersDelete (): Observable<User[]> {
+    return this.client.get<User[]>(environment.BASE_API_URL + "users/getUsersDelete");
   }
 
   public getUsers (): Observable<User[]> {

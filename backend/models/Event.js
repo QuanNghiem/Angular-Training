@@ -6,7 +6,10 @@ const EventSchema = new mongoose.Schema({
     location: { type: String },
     eventDate: { type: Date },
     imageURL: { type: String },
-    price: { type: Number }
+    price: { type: Number },
+    updatedOn: { type: Date },
+    updatedBy: { type: String },
+    deleteFlag: { type: Boolean }
 });
 
 module.exports = mongoose.model('Event', EventSchema);

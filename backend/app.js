@@ -38,7 +38,7 @@ app.use(expressJwt({
   secret: secretKey,
   algorithms: [ 'HS256' ]
 }).unless({
-  // Register and Login should not have tokens
+  // API call that should not be check for token. (Public routes)
   path: [
     '/users/register',
     '/users/login',

@@ -39,6 +39,10 @@ export class EventService {
     );
   }
 
+  public getEventsDelete (): Observable<Events[]> {
+    return this.client.get<Events[]>(environment.BASE_API_URL + "events/getEventsDelete");
+  }
+
   public addEvent (form: FormGroup): Observable<boolean> {
     const body = {
       "name": form.value.name,
@@ -81,6 +85,40 @@ export class EventService {
           return false;
         }
       )
+    );
+  }
+
+  public markForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'events/markForDelete', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
+    );
+  }
+
+  public removeMarkForDelete (id: any): Observable<boolean> {
+    const body = {
+      "_id": id
+    };
+
+    return this.client.put<{ status: boolean }>(environment.BASE_API_URL + 'events/removeMarkForDelete', body).pipe(
+      map(result => {
+        if (result.status === false) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      })
     );
   }
 

@@ -27,14 +27,17 @@
                         <td>{{event?.price | currency}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"> <button class="btn btn-dark btn-sm" data-toggle="modal"
-                                data-target="#ticketModal" (click)="getEventID(event?._id)"
-                                [disabled]="!checkLogIn()">Purchase tickets</button>
+                        <td colspan="2"> <button class="btn btn-outline-dark btn-lg" data-toggle="modal"
+                                data-target="#ticketModal" (click)="getEventID(event?._id)" [disabled]="!checkLogIn()"
+                                [style]="{'float':'right'}">Purchase tickets</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <button class="btn btn-outline-info btn-lg" [routerLink]="['/home']" [style]="{'float':'left'}">Back to
+                home</button>
         </div>
+
     </div>
 </div>
 
@@ -44,7 +47,7 @@
     </div>
 </div>
 
-<a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;" [routerLink]="['/home']">Back</a>
+
 
 <div class="container">
     <!-- Modal -->
@@ -62,7 +65,11 @@
                             <label for="amount">Ticket Amount</label>
                             <input type="number" id="amount" name="amount" class="form-control" formControlName="amount"
                                 [ngClass]="{ 'is-invalid': ticketForm.get('amount').touched && ticketForm.get('amount').invalid }">
-                            <span class="invalid-feedback">At least 1 ticket</span>
+                            <span class="invalid-feedback">
+                                <span *ngIf="ticketForm.get('amount').hasError('required')">At least 1 ticket</span>
+                                <span *ngIf="ticketForm.get('amount').hasError('negative')">Amount must be larger than 0
+                                </span>
+                            </span>
                         </div>
 
                         <div class="modal-footer">

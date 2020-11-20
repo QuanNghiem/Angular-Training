@@ -14,19 +14,19 @@
 
             <ng-container *ngIf="verifyAdmin()">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/displayEvent']">Events Manager</a>
+                    <a class="nav-link" [routerLink]="['/displayEvent']">Events Dashboard</a>
                 </li>
             </ng-container>
 
-            <!-- <ng-container *ngIf="verifyAdmin()">
+            <ng-container *ngIf="verifyAdmin()">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/addEvent']">Add Event</a>
+                    <a class="nav-link" [routerLink]="['/manageUsers']">Users Dashboard</a>
                 </li>
-            </ng-container> -->
+            </ng-container>
 
             <ng-container *ngIf="verifyAdmin()">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/manageUsers']">Users Manager</a>
+                    <a class="nav-link" [routerLink]="['/deleteDashboard']">Delete Dashboard</a>
                 </li>
             </ng-container>
         </ul>

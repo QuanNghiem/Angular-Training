@@ -11,7 +11,10 @@ const PurchaseSchema = new mongoose.Schema({
     eventDate: { type: Date },
     ticketAmount: { type: Number },
     ticketPrice: { type: Number },
-    purchaseDate: { type: Number }
+    purchaseDate: { type: Number },
+    updatedOn: { type: Date },
+    updatedBy: { type: String },
+    deleteFlag: { type: Boolean }
 });
 
 module.exports = mongoose.model('Purchase', PurchaseSchema);

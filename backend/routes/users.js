@@ -21,6 +21,9 @@ router.post('/register', function (req, res) {
     type: req.body.type,
     pNo: req.body.pNo,
     email: req.body.email,
+    updatedOn: new Date(),
+    updatedBy: 'System',
+    deleteFlag: false
   },
     function (err, user) {
       if (err) {
@@ -103,14 +106,46 @@ router.get('/getUsers', function (req, res) {
     }
     else {
       if (user.type === 1) {
-        User.find({}, function (err, data) {
-          if (err) {
-            res.json(err);
+        User.find(
+          {
+            "deleteFlag": false
+          },
+          function (err, data) {
+            if (err) {
+              res.json(err);
+            }
+            else {
+              res.json(data);
+            }
           }
-          else {
-            res.json(data);
+        );
+      }
+    }
+  });
+});
+
+router.get('/getUsersDelete', function (req, res) {
+  User.findById(req.user.id, function (errUser, user) {
+    if (errUser) {
+      res.status(401).send('Invalid token');
+    }
+    if (!user) {
+      res.status(401).send('Invalid token');
+    }
+    else {
+      if (user.type === 1) {
+        User.find(
+          {
+            "deleteFlag": true
           }
-        })
+          , function (err, data) {
+            if (err) {
+              res.json(err);
+            }
+            else {
+              res.json(data);
+            }
+          })
       }
     }
   });
@@ -134,10 +169,13 @@ router.put('/updateUser', function (req, res) {
             {
               username: req.body.username,
               password: hashedPass,
-              type: req.body.type
+              type: req.body.type,
+              updatedOn: new Date(),
+              updatedBy: user.username,
+              deleteFlag: false
             }
           },
-          { upsert: false },
+          { upsert: true },
           function (err, data) {
             if (err) {
               res.status(500).send(err);
@@ -169,6 +207,82 @@ router.delete('/deleteUser/:id', (req, res) => {
         User.findByIdAndDelete(id)
           .then(data => res.status(200).send({ status: true }))
           .catch(err => res.status(500).send(err));
+      }
+    }
+  });
+});
+
+router.put('/markForDelete', function (req, res) {
+  User.findById(req.user.id, function (errUser, user) {
+    if (errUser) {
+      res.status(401).send('Invalid token');
+    }
+    if (!user) {
+      res.status(401).send('Invalid token');
+    }
+    else {
+      if (user.type === 1) {
+        User.findByIdAndUpdate(
+          { "_id": req.body._id },
+          {
+            $set:
+            {
+              updatedOn: new Date(),
+              updatedBy: user.username,
+              deleteFlag: true
+            }
+          },
+          { upsert: true },
+          function (err, data) {
+            if (err) {
+              res.status(500).send(err);
+            }
+            if (!data) {
+              res.status(500).send({ status: false });
+            }
+            else {
+              res.send({ status: true });
+            }
+          }
+        )
+      }
+    }
+  });
+});
+
+router.put('/removeMarkForDelete', function (req, res) {
+  User.findById(req.user.id, function (errUser, user) {
+    if (errUser) {
+      res.status(401).send('Invalid token');
+    }
+    if (!user) {
+      res.status(401).send('Invalid token');
+    }
+    else {
+      if (user.type === 1) {
+        User.findByIdAndUpdate(
+          { "_id": req.body._id },
+          {
+            $set:
+            {
+              updatedOn: new Date(),
+              updatedBy: user.username,
+              deleteFlag: false
+            }
+          },
+          { upsert: true },
+          function (err, data) {
+            if (err) {
+              res.status(500).send(err);
+            }
+            if (!data) {
+              res.status(500).send({ status: false });
+            }
+            else {
+              res.send({ status: true });
+            }
+          }
+        )
       }
     }
   });

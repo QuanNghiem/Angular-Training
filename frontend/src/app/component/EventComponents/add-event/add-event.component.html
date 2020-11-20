@@ -63,11 +63,15 @@
                     </span>
                 </div>
 
-                <button class="btn btn-dark btn-block btn-lg" [disabled]="eventForm.invalid">Create Event</button>
+                <button class="btn btn-outline-info btn-lg" [routerLink]="['/displayEvent']"
+                    [style]="{'float':'left'}">Back to Event Dashboard</button>
+
+                <button class="btn btn-success btn-lg" [disabled]="eventForm.invalid" [style]="{'float':'right'}">Create
+                    Event</button>
             </form>
         </div>
     </div>
-</div>
+    <div class="row">
 
-<a class="btn btn-dark btn-lg" style="position: fixed; bottom: 0px; right: 0px;"
-    [routerLink]="['/displayEvent']">Back</a>
+    </div>
+</div>

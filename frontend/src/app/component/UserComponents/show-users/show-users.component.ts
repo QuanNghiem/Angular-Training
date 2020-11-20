@@ -34,9 +34,6 @@ function passwordMatchAdd (form: FormGroup) {
 })
 export class ShowUsersComponent implements OnInit, OnDestroy {
   selectedId: number;
-  selectedName: string;
-  selectedPNo: number;
-  selectedEmail: string;
 
   updateForm: FormGroup;
   addForm: FormGroup;
@@ -44,7 +41,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
   userSubscriber: Subscription;
   userList: User[] = [];
 
-  constructor (private fb: FormBuilder, private _userService: UserService, private _purchaseService: PurchaseService) { }
+  constructor (private fb: FormBuilder, private _userService: UserService) { }
 
   ngOnInit (): void {
     this.getUsers();
@@ -107,13 +104,9 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
   }
 
   onDelete (id) {
-    this.userSubscriber = this._userService.deleteUser(id).subscribe(data => {
+    this.userSubscriber = this._userService.markForDelete(id).subscribe(data => {
       if (data === true) {
-        this.userSubscriber = this._purchaseService.deleteByUser(id).subscribe(result => {
-          if (data === true) {
-            location.reload(true);
-          }
-        });
+        this.getUsers();
       }
     })
   }
@@ -126,9 +119,14 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
 
   setId (id, username, pNo, email) {
     this.selectedId = id;
-    this.selectedName = username;
-    this.selectedPNo = pNo;
-    this.selectedEmail = email;
+    this.updateForm.setValue({
+      username: username,
+      pass: null,
+      confirmPass: null,
+      type: '',
+      pNo: pNo,
+      email: email
+    })
   }
 
   ngOnDestroy () {

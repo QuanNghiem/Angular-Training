@@ -10,4 +10,7 @@ export class Purchase {
     ticketAmount: number;
     ticketPrice: number;
     purchaseDate: Date;
+    deleteFlag: boolean;
+    updatedBy: string;
+    updatedOn: Date;
 }

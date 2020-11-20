@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+    <h1>Events Marked for Delete</h1>
+</div>
+
+<div *ngIf="eventList.length === 0" class="alert alert-info">No event to show!</div>
+
+<div *ngIf="eventList.length !== 0">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th id="name">Name</th>
+                <th id="location">Location</th>
+                <th id="eventDate">Event Date</th>
+                <th id="updatedBy">Requested By</th>
+                <th id="approve">Approve Request?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of eventList; let ind = index">
+                <td>{{i?.name}}</td>
+                <td>{{i?.location}}</td>
+                <td>{{i?.eventDate | date:'MM/dd/yyyy, H:m'}}</td>
+                <td>{{i?.updatedBy}} on {{i?.updatedOn | date:'MM/dd/yyyy, H:m'}} </td>
+                <td>
+                    <p><button class="btn btn-secondary btn-sm" (click)="onRemove(i._id)">Cancel Request</button></p>
+                    <p><button class="btn btn-danger btn-sm" (click)="showModalDialog(i._id)">Delete</button></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p-dialog header="Confirmation" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p class="p-m-0">
+        This action is not reversible. Confirm delete?
+    </p>
+    <ng-template pTemplate="footer">
+        <button class="btn btn-secondary btn-sm" [style]="{'float':'left'}"
+            (click)="this.displayModal = false">Cancel</button>
+
+        <button class="btn btn-danger btn-sm" [style]="{'float':'right'}" (click)="onDelete()">Confirm</button>
+    </ng-template>
+</p-dialog>

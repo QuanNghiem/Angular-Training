@@ -24,7 +24,10 @@
                     <a [routerLink]="['/register']">Don't have an account? Sign Up.</a>
                 </div>
 
-                <button class="btn btn-dark btn-block btn-lg" [disabled]="loginForm.invalid">Login</button>
+                <div class="float right">
+                    <button class="btn btn-success btn-lg" [disabled]="loginForm.invalid"
+                        [style]="{'float':'right'}">Login</button>
+                </div>
             </form>
         </div>
     </div>

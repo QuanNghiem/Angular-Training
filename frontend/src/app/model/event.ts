@@ -6,4 +6,7 @@ export class Events {
     eventDate: Date;
     imageURL: string;
     price: number;
+    deleteFlag: boolean;
+    updatedBy: string;
+    updatedOn: Date;
 }
